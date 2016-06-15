@@ -1,0 +1,18 @@
+sudo: required
+dist: trusty
+language: java
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "sudo apt-get install -y chromium-browser chromium-chromedriver"
+  - "sudo cp -s /usr/lib/chromium-browser/chromedriver /usr/bin/."
+  - "sudo ls -l /usr/bin/*chrom*"
+  - "chromedriver --version"
+  - "chromium-browser --version"
+  - sleep 3 # give xvfb some time to start
+before_install:
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+env:
+  - DBUS_SESSION_BUS_ADDRESS=48762389462734
+  - NONE=123
+
